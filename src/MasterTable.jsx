@@ -451,7 +451,7 @@ const MasterTable = () => {
             <button
               onClick={() => closeModal()}
               type='button'
-              className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+              className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-base-100 hover:ring-1 hover:ring-base-300'
             >
               ⬅️ Cancel
             </button>
@@ -520,7 +520,10 @@ const MasterTable = () => {
           </div>
           {/* Pagination buttons */}
           <div className='flex flex-row justify-between items-center bg-base-200 border-2 border-base-300'>
-            <div className='mx-2'>
+            <div className="w-1/3 text-center mx-2">
+              Page {currentPage} of {totalPages} ({apiData.length} items)
+            </div>
+            <div className='w-1/3 text-center mx-2'>
               {Array.from({ length: totalPages }).map((_, index) => (
                 <button
                   className={`px-2 py-1 my-2 hover:outline hover:outline-1 hover:outline-base-300 hover:bg-blue-100 ${
@@ -533,11 +536,11 @@ const MasterTable = () => {
                 </button>
               ))}
             </div>
-            <div className='mx-2'>
+            <div className='w-1/3 text-center mx-2 flex flex-row justify-end'>
               <button
                 onClick={() => addHandler()}
                 type='button'
-                className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-base-100 hover:ring-1 hover:ring-base-300'
+                className='rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-base-100 hover:ring-1 hover:ring-base-300'
               >
                 ➕ Add
               </button>
