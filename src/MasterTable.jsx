@@ -3,24 +3,39 @@ import { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { LuFileEdit } from 'react-icons/lu';
 
-Modal.setAppElement('#root');
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    zIndex: 1000,
-  },
-};
+
 
 const MasterTable = () => {
-  //modal
+
+  //ส่วนจัดการ Modal
+  Modal.setAppElement('#root');
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      zIndex: 1000,
+    },
+  };
   const [modalIsOpen, setIsOpen] = useState(false);
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    setAddModalIsOpen(false);
+  };
+
+  //เรียกข้อมูลจาก API เมื่อมี Action จาก User
+  const [reload, setReload] = useState(false);
+  const [apiData, setAPIData] = useState([]);
 
   //ข้อมูลAPI
   const [user, setUser] = useState({
@@ -36,10 +51,6 @@ const MasterTable = () => {
     newEmail: '',
   });
 
-  //ข้อมูลจาก Backend
-  const [reload, setReload] = useState(false);
-  const [apiData, setAPIData] = useState([]);
-
   //ส่วน Pagination
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,7 +60,9 @@ const MasterTable = () => {
   const currentItems = apiData.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  //Fetch ข้อมูล
+  
+ 
+  //ส่วน Read 
   useEffect(() => {
     const getData = async () => {
       const response = await axios.get(
@@ -60,18 +73,9 @@ const MasterTable = () => {
     getData();
   }, [reload]);
 
-  // modal handler
-  const openModal = () => {
-    setIsOpen(true);
-  };
 
-  const closeModal = () => {
-    setIsOpen(false);
-    setAddModalIsOpen(false);
-  };
-
+  //ส่วน Action ปุ่ม Add ใน modal
   const addHandler = () => {
-    // reset ค่า state กรณีกด cancel ไป
     setUser((prevUser) => ({
       ...prevUser,
       newHn: '',
@@ -85,6 +89,7 @@ const MasterTable = () => {
     setAddModalIsOpen(true);
   };
 
+  //ส่วน Action Create Update Delete
   const addNewHandler = async () => {
     const data = {
       hn: user.newHn,
@@ -159,7 +164,7 @@ const MasterTable = () => {
 
   return (
     <>
-      {/* modal section */}
+      {/* ส่วน Modal Operation*/}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -170,7 +175,7 @@ const MasterTable = () => {
         <form className='space-y-6'>
           <section
             id='first-row'
-            className='flex felx-row justify-evenly gap-5'
+            className='flex flex-row justify-evenly gap-5'
           >
             <div>
               <label
@@ -468,12 +473,13 @@ const MasterTable = () => {
       </Modal>
 
       <div className='flex flex-row justify-center items-center w-full min-h-screen'>
-        {/* table section   */}
-        <div className=''>
+        <div>
           <div>
             <div className='text-black text-[2rem]'>ค้นหาเจ้าของ</div>
             <div className='bg-green-500 h-[3px] mb-5'></div>
           </div>
+
+          {/* table section   */}
           <div className='overflow-x-auto w-[50rem] h-96 border-2 border-gray-300'>
             <table className='w-full table-auto'>
               <thead className='sticky top-0'>
@@ -518,6 +524,7 @@ const MasterTable = () => {
               </tbody>
             </table>
           </div>
+
           {/* Pagination buttons */}
           <div className='flex flex-row justify-between items-center bg-base-200 border-2 border-base-300'>
             <div className="w-1/3 text-center mx-2">
@@ -546,6 +553,7 @@ const MasterTable = () => {
               </button>
             </div>
           </div>
+
         </div>
       </div>
     </>
