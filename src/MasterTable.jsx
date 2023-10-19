@@ -36,19 +36,6 @@ const MasterTable = () => {
     newEmail: '',
   });
 
-  // const [hn, setHN] = useState('');
-  // const [firstName, setFirstName] = useState('');
-  // const [lastName, setLastName] = useState('');
-  // const [phone, setPhone] = useState('');
-  // const [email, setEmail] = useState('');
-
-  // //ข้อมูลใหม่สำหรับ Add
-  // const [new_hn, setNewHN] = useState('');
-  // const [new_firstName, setNewFirstName] = useState('');
-  // const [new_lastName, setNewLastName] = useState('');
-  // const [new_phone, setNewPhone] = useState('');
-  // const [new_email, setNewEmail] = useState('');
-
   //ข้อมูลจาก Backend
   const [reload, setReload] = useState(false);
   const [apiData, setAPIData] = useState([]);
@@ -304,28 +291,28 @@ const MasterTable = () => {
             <button
               onClick={() => closeModal()}
               type='button'
-              className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+              className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-base-100 hover:ring-1 hover:ring-base-300'
             >
               ⬅️ Cancel
             </button>
             <button
               onClick={() => addHandler()}
               type='button'
-              className='flex w-full justify-center rounded-md bg-blue-100 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+              className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-base-100 hover:ring-1 hover:ring-base-300'
             >
               ➕ Add
             </button>
             <button
               onClick={() => updateHandler()}
               type='button'
-              className='flex w-full justify-center rounded-md bg-blue-100 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+              className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-base-100 hover:ring-1 hover:ring-base-300'
             >
               ➕ Save
             </button>
             <button
               onClick={() => deleteHandler()}
               type='button'
-              className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+              className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-base-100 hover:ring-1 hover:ring-base-300'
             >
               ❌ Delete
             </button>
@@ -472,7 +459,7 @@ const MasterTable = () => {
             <button
               onClick={() => addNewHandler()}
               type='button'
-              className='flex w-full justify-center rounded-md bg-blue-100 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+              className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-base-100 hover:ring-1 hover:ring-base-300'
             >
               ➕ Add New
             </button>
@@ -536,7 +523,9 @@ const MasterTable = () => {
             <div className='mx-2'>
               {Array.from({ length: totalPages }).map((_, index) => (
                 <button
-                  className='px-2 py-1 my-2 hover:outline hover:outline-1 hover:outline-base-300 hover:bg-blue-100'
+                  className={`px-2 py-1 my-2 hover:outline hover:outline-1 hover:outline-base-300 hover:bg-blue-100 ${
+                    currentPage === index + 1 ? 'border-1 border-base-300 bg-blue-100' : ''
+                  }`}
                   key={index}
                   onClick={() => paginate(index + 1)}
                 >
@@ -548,7 +537,7 @@ const MasterTable = () => {
               <button
                 onClick={() => addHandler()}
                 type='button'
-                className='flex w-full justify-center rounded-md bg-blue-100 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                className='flex w-full justify-center rounded-md bg-slate-200 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-base-100 hover:ring-1 hover:ring-base-300'
               >
                 ➕ Add
               </button>
