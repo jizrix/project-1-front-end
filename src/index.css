@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+table {
+    border-collapse:separate;
+    border:solid #B9B9B9 1px;
+    border-radius:4px;
+    background-color: #fff;
+}
+
+td, th {
+    border-left:solid #B9B9B9 1px;
+    border-top:solid #B9B9B9 1px;
+    padding: 10px;
+}
+
+th {
+    background-color: #f5f5f5;
+    border-top: none;
+    
+}
+
+td:first-child, th:first-child {
+     border-left: none;
+}
