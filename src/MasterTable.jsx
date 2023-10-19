@@ -23,18 +23,31 @@ const MasterTable = () => {
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
 
   //ข้อมูลAPI
-  const [hn, setHN] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
+  const [user, setUser] = useState({
+    hn: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    newHn: '',
+    newFirstName: '',
+    newLastName: '',
+    newPhone: '',
+    newEmail: '',
+  });
 
-  //ข้อมูลใหม่สำหรับ Add
-  const [new_hn, setNewHN] = useState('');
-  const [new_firstName, setNewFirstName] = useState('');
-  const [new_lastName, setNewLastName] = useState('');
-  const [new_phone, setNewPhone] = useState('');
-  const [new_email, setNewEmail] = useState('');
+  // const [hn, setHN] = useState('');
+  // const [firstName, setFirstName] = useState('');
+  // const [lastName, setLastName] = useState('');
+  // const [phone, setPhone] = useState('');
+  // const [email, setEmail] = useState('');
+
+  // //ข้อมูลใหม่สำหรับ Add
+  // const [new_hn, setNewHN] = useState('');
+  // const [new_firstName, setNewFirstName] = useState('');
+  // const [new_lastName, setNewLastName] = useState('');
+  // const [new_phone, setNewPhone] = useState('');
+  // const [new_email, setNewEmail] = useState('');
 
   //ข้อมูลจาก Backend
   const [reload, setReload] = useState(false);
@@ -49,11 +62,12 @@ const MasterTable = () => {
   const currentItems = apiData.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-
   //Fetch ข้อมูล
   useEffect(() => {
     const getData = async () => {
-      const response = await axios.get('https://project-1-back-end.onrender.com/');
+      const response = await axios.get(
+        'https://project-1-back-end.onrender.com/'
+      );
       setAPIData(response.data);
     };
     getData();
@@ -71,34 +85,31 @@ const MasterTable = () => {
 
   const addHandler = () => {
     // reset ค่า state กรณีกด cancel ไป
-    setNewHN('');
-    setNewFirstName('');
-    setNewLastName('');
-    setNewPhone('');
-    setNewEmail('');
+    setUser({
+      newHn: '',
+      newFirstName: '',
+      newLastName: '',
+      newPhone: '',
+      newEmail: '',
+    });
 
     setIsOpen(false);
     setAddModalIsOpen(true);
   };
 
   const addNewHandler = async () => {
-    console.log('add new click');
-    console.log(`
-    hn : ${new_hn} \n
-    firstName : ${new_firstName} \n
-    lastName : ${new_lastName} \n
-    phone : ${new_phone} \n
-    email : ${new_email} \n
-     `);
     const data = {
-      hn: new_hn,
-      firstname: new_firstName,
-      lastname: new_lastName,
-      phone: new_phone,
-      email: new_email,
+      hn: user.newHn,
+      firstname: user.newFirstName,
+      lastname: user.newLastName,
+      phone: user.newPhone,
+      email: user.newEmail,
     };
 
-    const response = await axios.post('https://project-1-back-end.onrender.com/add', data);
+    const response = await axios.post(
+      'https://project-1-back-end.onrender.com/add',
+      data
+    );
     if (response.status === 200) {
       alert('เพิ่มเรียบร้อย');
     } else {
@@ -111,13 +122,16 @@ const MasterTable = () => {
   const updateHandler = async () => {
     console.log('update click');
     const data = {
-      hn: hn,
-      firstname: firstName,
-      lastname: lastName,
-      phone: phone,
-      email: email,
+      hn: user.hn,
+      firstname: user.firstName,
+      lastname: user.lastName,
+      phone: user.phone,
+      email: user.email,
     };
-    const response = await axios.put('https://project-1-back-end.onrender.com/update', data);
+    const response = await axios.put(
+      'https://project-1-back-end.onrender.com/update',
+      data
+    );
     if (response.status === 200) {
       alert('อัพเดทเรียบร้อย');
     } else {
@@ -129,7 +143,9 @@ const MasterTable = () => {
 
   const deleteHandler = async () => {
     console.log('delete click');
-    const response = await axios.delete(`https://project-1-back-end.onrender.com/delete/${hn}`);
+    const response = await axios.delete(
+      `https://project-1-back-end.onrender.com/delete/${user.hn}`
+    );
     if (response.status === 200) {
       alert('ลบเรียบร้อย');
     } else {
@@ -140,16 +156,22 @@ const MasterTable = () => {
   };
 
   const editHandler = (data) => {
-    setHN(data.hn);
-    setFirstName(data.firstname);
-    setLastName(data.lastname);
-    setPhone(data.phone);
-    setEmail(data.email);
+    setUser({
+      hn: data.hn,
+      firstName: data.firstname,
+      lastName: data.lastname,
+      phone: data.phone,
+      email: data.email,
+    });
+    // setHN(data.hn);
+    // setFirstName(data.firstname);
+    // setLastName(data.lastname);
+    // setPhone(data.phone);
+    // setEmail(data.email);
 
     openModal();
     console.log('edit click : ');
   };
-
 
   return (
     <>
@@ -178,8 +200,8 @@ const MasterTable = () => {
                   name='hn'
                   type='text'
                   required
-                  value={hn}
-                  onChange={(e) => setHN(e.target.value)}
+                  value={user.hn}
+                  onChange={(e) => setUser({ hn: e.target.value })}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300
                   placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   disabled
@@ -198,8 +220,8 @@ const MasterTable = () => {
                 <input
                   name='firstname'
                   type='text'
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  value={user.firstName}
+                  onChange={(e) => setUser({ firstName: e.target.value })}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -218,8 +240,8 @@ const MasterTable = () => {
                 <input
                   name='lastname'
                   type='text'
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  value={user.lastName}
+                  onChange={(e) => setUser({ lastName: e.target.value })}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -245,8 +267,8 @@ const MasterTable = () => {
                 <input
                   name='phone'
                   type='text'
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  value={user.phone}
+                  onChange={(e) => setUser({ phone: e.target.value })}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -268,8 +290,8 @@ const MasterTable = () => {
                   id='email'
                   name='email'
                   type='text'
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={user.email}
+                  onChange={(e) => setUser({ email: e.target.value })}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -339,8 +361,8 @@ const MasterTable = () => {
                   name='hn'
                   type='text'
                   required
-                  value={new_hn}
-                  onChange={(e) => setNewHN(e.target.value)}
+                  value={user.newHn}
+                  onChange={(e) => setUser({ newHn: e.target.value })}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                 />
@@ -358,8 +380,8 @@ const MasterTable = () => {
                 <input
                   name='firstname'
                   type='text'
-                  value={new_firstName}
-                  onChange={(e) => setNewFirstName(e.target.value)}
+                  value={user.newFirstName}
+                  onChange={(e) => setUser({ newFirstName: e.target.value })}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -378,8 +400,8 @@ const MasterTable = () => {
                 <input
                   name='lastname'
                   type='text'
-                  value={new_lastName}
-                  onChange={(e) => setNewLastName(e.target.value)}
+                  value={user.newLastName}
+                  onChange={(e) => setUser({ newLastName: e.target.value })}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -405,8 +427,8 @@ const MasterTable = () => {
                 <input
                   name='phone'
                   type='text'
-                  value={new_phone}
-                  onChange={(e) => setNewPhone(e.target.value)}
+                  value={user.newPhone}
+                  onChange={(e) => setUser({ newPhone: e.target.value })}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -428,8 +450,8 @@ const MasterTable = () => {
                   id='email'
                   name='email'
                   type='text'
-                  value={new_email}
-                  onChange={(e) => setNewEmail(e.target.value)}
+                  value={user.newEmail}
+                  onChange={(e) => setUser({ newEmail: e.target.value })}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -484,9 +506,7 @@ const MasterTable = () => {
                   <th className='text-base text-black font-medium'>
                     เบอร์ติดต่อ
                   </th>
-                  <th className='text-base text-black font-medium'>
-                    อิเมล์
-                  </th>
+                  <th className='text-base text-black font-medium'>อิเมล์</th>
                 </tr>
               </thead>
               <tbody>
@@ -515,16 +535,28 @@ const MasterTable = () => {
             </table>
           </div>
           {/* Pagination buttons */}
-          <div className='flex flex-row justify-center items-center bg-base-200 border-2 border-base-300'>
-            {Array.from({ length: totalPages }).map((_, index) => (
+          <div className='flex flex-row justify-between items-center bg-base-200 border-2 border-base-300'>
+            <div className='ml-2'>
+              {Array.from({ length: totalPages }).map((_, index) => (
+                <button
+                  className='px-2 py-1 my-2 hover:outline hover:outline-1 hover:outline-base-300 hover:bg-blue-100'
+                  key={index}
+                  onClick={() => paginate(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+            
+            <div className='mr-2'>
               <button
-                className='px-2 py-1 my-2 hover:outline hover:outline-1 hover:outline-base-300 hover:bg-blue-100'
-                key={index}
-                onClick={() => paginate(index + 1)}
+                onClick={() => addHandler()}
+                type='button'
+                className='flex w-full justify-center rounded-md bg-blue-100 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
               >
-                {index + 1}
+                ➕ Add New
               </button>
-            ))}
+            </div>
           </div>
         </div>
       </div>
