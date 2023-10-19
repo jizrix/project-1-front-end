@@ -85,13 +85,14 @@ const MasterTable = () => {
 
   const addHandler = () => {
     // reset ค่า state กรณีกด cancel ไป
-    setUser({
+    setUser((prevUser) => ({
+      ...prevUser,
       newHn: '',
       newFirstName: '',
       newLastName: '',
       newPhone: '',
       newEmail: '',
-    });
+    }));
 
     setIsOpen(false);
     setAddModalIsOpen(true);
@@ -105,6 +106,7 @@ const MasterTable = () => {
       phone: user.newPhone,
       email: user.newEmail,
     };
+    console.log(data);
 
     const response = await axios.post(
       'https://project-1-back-end.onrender.com/add',
@@ -163,11 +165,6 @@ const MasterTable = () => {
       phone: data.phone,
       email: data.email,
     });
-    // setHN(data.hn);
-    // setFirstName(data.firstname);
-    // setLastName(data.lastname);
-    // setPhone(data.phone);
-    // setEmail(data.email);
 
     openModal();
     console.log('edit click : ');
@@ -201,7 +198,7 @@ const MasterTable = () => {
                   type='text'
                   required
                   value={user.hn}
-                  onChange={(e) => setUser({ hn: e.target.value })}
+                  onChange={(e) => setUser((prevUser) => ({...prevUser,hn: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300
                   placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   disabled
@@ -221,7 +218,7 @@ const MasterTable = () => {
                   name='firstname'
                   type='text'
                   value={user.firstName}
-                  onChange={(e) => setUser({ firstName: e.target.value })}
+                  onChange={(e) => setUser((prevUser) => ({...prevUser,firstName: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -241,7 +238,7 @@ const MasterTable = () => {
                   name='lastname'
                   type='text'
                   value={user.lastName}
-                  onChange={(e) => setUser({ lastName: e.target.value })}
+                  onChange={(e) => setUser((prevUser) => ({...prevUser,lastName: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -268,7 +265,7 @@ const MasterTable = () => {
                   name='phone'
                   type='text'
                   value={user.phone}
-                  onChange={(e) => setUser({ phone: e.target.value })}
+                  onChange={(e) => setUser((prevUser) => ({...prevUser,phone: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -291,7 +288,7 @@ const MasterTable = () => {
                   name='email'
                   type='text'
                   value={user.email}
-                  onChange={(e) => setUser({ email: e.target.value })}
+                  onChange={(e) => setUser((prevUser) => ({...prevUser,email: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -362,7 +359,7 @@ const MasterTable = () => {
                   type='text'
                   required
                   value={user.newHn}
-                  onChange={(e) => setUser({ newHn: e.target.value })}
+                  onChange={(e) => setUser((prevUser) => ({...prevUser,newHn: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                 />
@@ -381,7 +378,7 @@ const MasterTable = () => {
                   name='firstname'
                   type='text'
                   value={user.newFirstName}
-                  onChange={(e) => setUser({ newFirstName: e.target.value })}
+                  onChange={(e) => setUser((prevUser) => ({...prevUser,newFirstName: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -401,7 +398,7 @@ const MasterTable = () => {
                   name='lastname'
                   type='text'
                   value={user.newLastName}
-                  onChange={(e) => setUser({ newLastName: e.target.value })}
+                  onChange={(e) => setUser((prevUser) => ({...prevUser,newLastName: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -428,7 +425,7 @@ const MasterTable = () => {
                   name='phone'
                   type='text'
                   value={user.newPhone}
-                  onChange={(e) => setUser({ newPhone: e.target.value })}
+                  onChange={(e) => setUser((prevUser) => ({...prevUser,newPhone: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -451,7 +448,7 @@ const MasterTable = () => {
                   name='email'
                   type='text'
                   value={user.newEmail}
-                  onChange={(e) => setUser({ newEmail: e.target.value })}
+                  onChange={(e) => setUser((prevUser) => ({...prevUser,newEmail: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
                   required
@@ -536,7 +533,7 @@ const MasterTable = () => {
           </div>
           {/* Pagination buttons */}
           <div className='flex flex-row justify-between items-center bg-base-200 border-2 border-base-300'>
-            <div className='ml-2'>
+            <div className='mx-2'>
               {Array.from({ length: totalPages }).map((_, index) => (
                 <button
                   className='px-2 py-1 my-2 hover:outline hover:outline-1 hover:outline-base-300 hover:bg-blue-100'
@@ -547,14 +544,13 @@ const MasterTable = () => {
                 </button>
               ))}
             </div>
-            
-            <div className='mr-2'>
+            <div className='mx-2'>
               <button
                 onClick={() => addHandler()}
                 type='button'
                 className='flex w-full justify-center rounded-md bg-blue-100 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
               >
-                ➕ Add New
+                ➕ Add
               </button>
             </div>
           </div>
