@@ -200,7 +200,7 @@ const MasterTable = () => {
                   value={user.hn}
                   onChange={(e) => setUser((prevUser) => ({...prevUser,hn: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300
-                  placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                  placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   disabled
                 />
               </div>
@@ -220,7 +220,7 @@ const MasterTable = () => {
                   value={user.firstName}
                   onChange={(e) => setUser((prevUser) => ({...prevUser,firstName: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
                 />
               </div>
@@ -240,7 +240,7 @@ const MasterTable = () => {
                   value={user.lastName}
                   onChange={(e) => setUser((prevUser) => ({...prevUser,lastName: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
                 />
               </div>
@@ -267,7 +267,7 @@ const MasterTable = () => {
                   value={user.phone}
                   onChange={(e) => setUser((prevUser) => ({...prevUser,phone: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
                 />
               </div>
@@ -290,7 +290,7 @@ const MasterTable = () => {
                   value={user.email}
                   onChange={(e) => setUser((prevUser) => ({...prevUser,email: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
                 />
               </div>
@@ -361,7 +361,7 @@ const MasterTable = () => {
                   value={user.newHn}
                   onChange={(e) => setUser((prevUser) => ({...prevUser,newHn: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                 />
               </div>
             </div>
@@ -380,7 +380,7 @@ const MasterTable = () => {
                   value={user.newFirstName}
                   onChange={(e) => setUser((prevUser) => ({...prevUser,newFirstName: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
                 />
               </div>
@@ -400,7 +400,7 @@ const MasterTable = () => {
                   value={user.newLastName}
                   onChange={(e) => setUser((prevUser) => ({...prevUser,newLastName: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
                 />
               </div>
@@ -427,7 +427,7 @@ const MasterTable = () => {
                   value={user.newPhone}
                   onChange={(e) => setUser((prevUser) => ({...prevUser,newPhone: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
                 />
               </div>
@@ -450,7 +450,7 @@ const MasterTable = () => {
                   value={user.newEmail}
                   onChange={(e) => setUser((prevUser) => ({...prevUser,newEmail: e.target.value }))}
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
                 />
               </div>
