@@ -4,8 +4,6 @@ import Modal from 'react-modal';
 import { LuFileEdit } from 'react-icons/lu';
 
 
-
-
 const MasterTable = () => {
 
   //ส่วนจัดการ Modal
@@ -66,7 +64,7 @@ const MasterTable = () => {
   useEffect(() => {
     const getData = async () => {
       const response = await axios.get(
-        'https://project-1-back-end.onrender.com/'
+        'https://ttss-back-end.onrender.com/'
       );
       setAPIData(response.data);
     };
@@ -101,7 +99,7 @@ const MasterTable = () => {
     console.log(data);
 
     const response = await axios.post(
-      'https://project-1-back-end.onrender.com/add',
+      'https://ttss-back-end.onrender.com/add',
       data
     );
     if (response.status === 200) {
@@ -123,7 +121,7 @@ const MasterTable = () => {
       email: user.email,
     };
     const response = await axios.put(
-      'https://project-1-back-end.onrender.com/update',
+      'https://ttss-back-end.onrender.com/update',
       data
     );
     if (response.status === 200) {
@@ -138,7 +136,7 @@ const MasterTable = () => {
   const deleteHandler = async () => {
     console.log('delete click');
     const response = await axios.delete(
-      `https://project-1-back-end.onrender.com/delete/${user.hn}`
+      `https://ttss-back-end.onrender.com/delete/${user.hn}`
     );
     if (response.status === 200) {
       alert('ลบเรียบร้อย');
