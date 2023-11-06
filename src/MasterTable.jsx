@@ -3,9 +3,7 @@ import { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import { LuFileEdit } from 'react-icons/lu';
 
-
 const MasterTable = () => {
-
   //ส่วนจัดการ Modal
   Modal.setAppElement('#root');
   const customStyles = {
@@ -58,19 +56,14 @@ const MasterTable = () => {
   const currentItems = apiData.slice(indexOfFirstItem, indexOfLastItem);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  
- 
-  //ส่วน Read 
+  //ส่วน Read
   useEffect(() => {
     const getData = async () => {
-      const response = await axios.get(
-        'https://ttss-back-end.onrender.com/'
-      );
+      const response = await axios.get('https://ttss-back-end.onrender.com/');
       setAPIData(response.data);
     };
     getData();
   }, [reload]);
-
 
   //ส่วน Action ปุ่ม Add ใน modal
   const addHandler = () => {
@@ -96,20 +89,38 @@ const MasterTable = () => {
       phone: user.newPhone,
       email: user.newEmail,
     };
-    console.log(data);
+  
+    try {
+      const response = await axios.post('https://ttss-back-end.onrender.com/add', data);
+  
+      if (response.status === 200) {
+        alert('เพิ่มเรียบร้อย');
+        closeModal();
+        setReload(!reload);
+      } else {
+        console.error('ไม่สามารถเพิ่มข้อมูลได้');
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        
+        console.error('Server Error:', error.response.status);
+        alert('ใส่ข้อมูลในฟอร์มไม่ครบ');
+      } else if (error.response.status === 409) {
 
-    const response = await axios.post(
-      'https://ttss-back-end.onrender.com/add',
-      data
-    );
-    if (response.status === 200) {
-      alert('เพิ่มเรียบร้อย');
-    } else {
-      alert(`ติดปัญหา : ${response.status}`);
+        console.error('Network Error:', error.request);
+        alert(error.response.data.message);
+      } else if (error.request) {
+        
+        console.error('Network Error:', error.request);
+        alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้');
+      } else {
+        
+        console.error('Error Message:', error.message);
+        alert('เกิดข้อผิดพลาด: ' + error.message);
+      }
     }
-    closeModal();
-    setReload(!reload);
   };
+  
 
   const updateHandler = async () => {
     console.log('update click');
@@ -120,10 +131,7 @@ const MasterTable = () => {
       phone: user.phone,
       email: user.email,
     };
-    const response = await axios.put(
-      'https://ttss-back-end.onrender.com/update',
-      data
-    );
+    const response = await axios.put('https://ttss-back-end.onrender.com/update', data);
     if (response.status === 200) {
       alert('อัพเดทเรียบร้อย');
     } else {
@@ -188,7 +196,9 @@ const MasterTable = () => {
                   type='text'
                   required
                   value={user.hn}
-                  onChange={(e) => setUser((prevUser) => ({...prevUser,hn: e.target.value }))}
+                  onChange={(e) =>
+                    setUser((prevUser) => ({ ...prevUser, hn: e.target.value }))
+                  }
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300
                   placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   disabled
@@ -208,7 +218,12 @@ const MasterTable = () => {
                   name='firstname'
                   type='text'
                   value={user.firstName}
-                  onChange={(e) => setUser((prevUser) => ({...prevUser,firstName: e.target.value }))}
+                  onChange={(e) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      firstName: e.target.value,
+                    }))
+                  }
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
@@ -228,7 +243,12 @@ const MasterTable = () => {
                   name='lastname'
                   type='text'
                   value={user.lastName}
-                  onChange={(e) => setUser((prevUser) => ({...prevUser,lastName: e.target.value }))}
+                  onChange={(e) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      lastName: e.target.value,
+                    }))
+                  }
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
@@ -255,7 +275,12 @@ const MasterTable = () => {
                   name='phone'
                   type='text'
                   value={user.phone}
-                  onChange={(e) => setUser((prevUser) => ({...prevUser,phone: e.target.value }))}
+                  onChange={(e) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      phone: e.target.value,
+                    }))
+                  }
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
@@ -278,7 +303,12 @@ const MasterTable = () => {
                   name='email'
                   type='text'
                   value={user.email}
-                  onChange={(e) => setUser((prevUser) => ({...prevUser,email: e.target.value }))}
+                  onChange={(e) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      email: e.target.value,
+                    }))
+                  }
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
@@ -349,7 +379,12 @@ const MasterTable = () => {
                   type='text'
                   required
                   value={user.newHn}
-                  onChange={(e) => setUser((prevUser) => ({...prevUser,newHn: e.target.value }))}
+                  onChange={(e) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      newHn: e.target.value,
+                    }))
+                  }
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                 />
@@ -368,7 +403,12 @@ const MasterTable = () => {
                   name='firstname'
                   type='text'
                   value={user.newFirstName}
-                  onChange={(e) => setUser((prevUser) => ({...prevUser,newFirstName: e.target.value }))}
+                  onChange={(e) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      newFirstName: e.target.value,
+                    }))
+                  }
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
@@ -388,7 +428,12 @@ const MasterTable = () => {
                   name='lastname'
                   type='text'
                   value={user.newLastName}
-                  onChange={(e) => setUser((prevUser) => ({...prevUser,newLastName: e.target.value }))}
+                  onChange={(e) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      newLastName: e.target.value,
+                    }))
+                  }
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
@@ -415,7 +460,12 @@ const MasterTable = () => {
                   name='phone'
                   type='text'
                   value={user.newPhone}
-                  onChange={(e) => setUser((prevUser) => ({...prevUser,newPhone: e.target.value }))}
+                  onChange={(e) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      newPhone: e.target.value,
+                    }))
+                  }
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
@@ -438,7 +488,12 @@ const MasterTable = () => {
                   name='email'
                   type='text'
                   value={user.newEmail}
-                  onChange={(e) => setUser((prevUser) => ({...prevUser,newEmail: e.target.value }))}
+                  onChange={(e) =>
+                    setUser((prevUser) => ({
+                      ...prevUser,
+                      newEmail: e.target.value,
+                    }))
+                  }
                   className='block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
                     placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-500 sm:text-sm sm:leading-6'
                   required
@@ -525,14 +580,16 @@ const MasterTable = () => {
 
           {/* Pagination buttons */}
           <div className='flex flex-row justify-between items-center bg-base-200 border-2 border-base-300'>
-            <div className="w-1/3 text-center mx-2">
+            <div className='w-1/3 text-center mx-2'>
               Page {currentPage} of {totalPages} ({apiData.length} items)
             </div>
             <div className='w-1/3 text-center mx-2'>
               {Array.from({ length: totalPages }).map((_, index) => (
                 <button
                   className={`px-2 py-1 my-2 hover:outline hover:outline-1 hover:outline-base-300 hover:bg-blue-100 ${
-                    currentPage === index + 1 ? 'border-1 border-base-300 bg-blue-100' : ''
+                    currentPage === index + 1
+                      ? 'border-1 border-base-300 bg-blue-100'
+                      : ''
                   }`}
                   key={index}
                   onClick={() => paginate(index + 1)}
@@ -551,7 +608,6 @@ const MasterTable = () => {
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </>
