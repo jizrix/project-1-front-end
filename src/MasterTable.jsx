@@ -170,6 +170,8 @@ const MasterTable = () => {
 
   return (
     <>
+
+
       {/* ส่วน Modal Operation*/}
       <Modal
         isOpen={modalIsOpen}
@@ -524,6 +526,15 @@ const MasterTable = () => {
           </section>
         </form>
       </Modal>
+      <div><iframe
+  width="600"
+  height="400"
+  seamless
+  frameBorder="0"
+  scrolling="no"
+  src="https://easy-vm-dev-linux.eastasia.cloudapp.azure.com/superset/explore/p/QOvro9eAxp1/?standalone=1&height=400"
+>
+</iframe></div>
 
       <div className='flex flex-row justify-center items-center w-full min-h-screen'>
         <div>
